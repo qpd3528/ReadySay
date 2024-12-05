@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://ofbiz.apache.org/Widget-Form" xsi:schemaLocation="http://ofbiz.apache.org/Widget-Form http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="FindTranslation" type="single" target="FindTranslation" default-entity-name="TranslationData">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <!--        <field name="translationDataId" title="${uiLabelMap.translationDataId}"><text-find/></field>-->
+        <field name="sourceLanguageId" title="${uiLabelMap.SourceLanguageId}">
+            <drop-down>
+
+            </drop-down>
+        </field>
+        <field name="targetLanguageId" title="${uiLabelMap.TargetLanguageId}">
+            <drop-down>
+
+            </drop-down>
+        </field>
+        <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceType}"><text/></field><!--데이터 소스 타입이 많아지고  체계적인 관리가 필요하다면 테이블 생성하여 드롭다운 메뉴로 표시가 필요-->
+        <field name="langModelStatusId" title="${uiLabelMap.LangModelStatusId}">
+            <drop-down allow-empty="true" current-description="">
+                <entity-options key-field-name="statusId" entity-name="TranslationStatusItem"/>
+            </drop-down>
+        </field>
+        <field name="serviceStatusId" title="${uiLabelMap.ServiceStatusId}">
+            <drop-down>
+
+            </drop-down>
+        </field>
+        <field name="majorCategory" title="${uiLabelMap.MajorCategory}"><text/></field>
+        <field name="searchButton"><submit/></field>
+    </form>
+
+
+
+    <grid name="ListTranslations" list-name="listIt" paginate-target="FindTranslation" default-entity-name="TranslationData" separate-columns="true"
+          odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="languageCtx"/>
+                <field-map field-name="entityName" value="TranslationData"/>
+                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+            <set field="sortField" from-field="parameters.sortField"/>
+        </actions>
+        <alt-row-style use-when="'DEPLOYMENT_READY'.equals(statusId)" style="Validate"/>
+        <alt-row-style use-when="'DATA_PREPARATION'.equals(statusId)" style="Warn"/>
+        <field name="translationDataId" title="${uiLabelMap.translationDataId}" widget-style="buttontext">
+            <hyperlink description="${translationDataId}" target="EditTranslation" also-hidden="false">
+                <parameter param-name="translationDataId"/>
+            </hyperlink>
+        </field>
+        <field name="sourceLanguageId" title="${uiLabelMap.SourceLanguageId}" sort-field="true"><display-entity entity-name="Language"/></field>
+        <field name="targetLanguageId" title="${uiLabelMap.TargetLanguageId}" sort-field="true"><display-entity entity-name="Language"/></field>
+        <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceType}"><display/></field>
+        <field name="langModelStatusId" title="${uiLabelMap.LangModelStatusId}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
+        <field name="serviceStatusId" title="${uiLabelMap.ServiceStatusId}" sort-field="true"><display-entity entity-name="StatusItem"/></field>
+        <field name="sequenceId" title="${uiLabelMap.SequenceId}"><display/></field>
+        <field name="qualityScore" title="${uiLabelMap.QualityScore}"><display/></field>
+        <field name="majorCategory" title="${uiLabelMap.MajorCategory}"><display/></field>
+        <field name="minorCategory" title="${uiLabelMap.MinorCategory}"><display/></field>
+
+
+        <!--        <field name="delete" title="${uiLabelMap.delete}" widget-style="buttontext">-->
+        <!--            <hyperlink description="${uiLabelMap.delete}" target="deleteLanguage" also-hidden="false" confirmation-message="${languageName}를 삭제하시겠습니까?">-->
+        <!--                <parameter param-name="languageId"/>-->
+        <!--            </hyperlink>-->
+        <!--        </field>-->
+    </grid>
+
+
+
+    <form name="EditTranslation" type="single" target="updateTranslation" title="" default-map-name="translation" default-entity-name="TranslationData">
+        <actions>
+            <entity-one entity-name="StatusItem" value-field="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" from-field="translation.statusId"/>
+            </entity-one>
+            <set field="anotherText" from-field="translation.anotherText"/>
+        </actions>
+        <alt-target use-when="translation==null" target="createLanguage"/>
+        <auto-fields-service service-name="updateTranslation"/>
+        <field use-when="translation!=null" name="translationDataId" title="${uiLabelMap.translationDataId}"><display/></field>
+        <field use-when="translation==null @and translationDataId==null" name="translationDataId" title="${uiLabelMap.translationDataId}"><ignored/></field>
+        <field use-when="translation==null @and translationDataId!=null" name="translationDataId" title="${uiLabelMap.translationDataId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${translationDataId}]" also-hidden="false"/></field>
+        <field name="sourceLanguageId" title="${uiLabelMap.SourceLanguageId}" required-field="true">
+            <drop-down>
+<!--                <entity-options entity-name="Language" key-field-name="languageCode"/>-->
+                <option key="Y"/>
+            </drop-down>
+        </field>
+        <field name="targetLanguageId" title="${uiLabelMap.TargetLanguageId}" required-field="true">
+            <drop-down>
+<!--                <entity-options entity-name="Language" key-field-name="languageCode"/>-->
+                <option key="Y"/>
+            </drop-down>
+        </field>
+        <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceType}"><text/></field>
+        <field name="langModelStatusId" title="${uiLabelMap.LangModelStatusId}">
+            <drop-down>
+<!--                <entity-options entity-name="LangModelStatusItem"/>-->
+                <option key="Y"/>
+            </drop-down>
+        </field>
+        <field name="serviceStatusId" use-when="translation==null" title="${uiLabelMap.ServiceStatusId}">
+            <drop-down>
+<!--                <entity-options entity-name="ServiceStatusItem"/>-->
+                <option key="Y"/>
+            </drop-down>
+        </field>
+        <field name="serviceStatusId" use-when="translation!=null" title="${uiLabelMap.ServiceStatusId}" required-field="true">
+            <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
+                <option key="${currentStatus.statusId}" description="${currentStatus.description}"/>
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="serviceStatusId" env-name="translation.serviceStatusId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="sequenceId" title="${uiLabelMap.SequenceId}"><text/></field>
+        <field name="qualityScore" title="${uiLabelMap.QualityScore}"><text/></field>
+        <field name="majorCategory" title="${uiLabelMap.MajorCategory}"><text/></field>
+        <field name="minorCategory" title="${uiLabelMap.MinorCategory}"><text/></field>
+
+
+        <!--        <field name="statusId"  use-when="language==null" title="${uiLabelMap.CommonStatus}" required-field="true">-->
+        <!--            <drop-down allow-empty="false">-->
+        <!--                <entity-options entity-name="LanguageStatusItem"/>-->
+        <!--            </drop-down>-->
+        <!--        </field>-->
+        <!--        <field name="statusId" use-when="language!=null" title="${uiLabelMap.CommonStatus}" required-field="true">-->
+        <!--            <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">-->
+        <!--                <option key="${currentStatus.statusId}" description="${currentStatus.description}"/>-->
+        <!--                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">-->
+        <!--                    <entity-constraint name="statusId" env-name="language.statusId"/>-->
+        <!--                </entity-options>-->
+        <!--            </drop-down>-->
+        <!--        </field>-->
+
+        <field name="submitButton" use-when="language==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="language!=null" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>
+
+
+
+
+
+
+
+
+
+
+</forms>

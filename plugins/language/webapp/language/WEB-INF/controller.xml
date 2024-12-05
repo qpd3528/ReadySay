@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://ofbiz.apache.org/Site-Conf" xsi:schemaLocation="http://ofbiz.apache.org/Site-Conf http://ofbiz.apache.org/dtds/site-conf.xsd">
+    <!-- The controller elements that are common to all OFBiz components
+         can be found in the following xml file. A component can override the
+         elements found in the common-controller.xml file. -->
+    <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>
+
+    <description>Language Component Site Configuration File</description>
+
+    <!-- Events to run on every request before security (chains exempt) -->
+    <!--
+    <preprocessor>
+    </preprocessor>
+    -->
+    <!-- Events to run on every request after all other processing (chains exempt) -->
+    <!--
+    <postprocessor>
+        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
+    </postprocessor>
+    -->
+
+    <!-- Request Mappings -->
+    <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="main"/></request-map>
+
+
+
+    <!-- Language Requests -->
+    <request-map uri="FindLanguage"><security https="true" auth="true"/><response name="success" type="view" value="FindLanguage"/></request-map>
+    <request-map uri="EditLanguage"><security https="true" auth="true"/><response name="success" type="view" value="EditLanguage"/></request-map>
+    <request-map uri="EditLanguageLayer"><security https="true" auth="true"/><response name="success" type="view" value="EditLanguageLayer"/></request-map>
+    <request-map uri="createLanguage">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createLanguage"/>
+        <response name="success" type="request-redirect" value="EditLanguage">
+            <redirect-parameter name="languageId"/>
+        </response>
+        <response name="error" type="view" value="FindLanguage"/>
+    </request-map>
+    <request-map uri="updateLanguage">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateLanguage"/>
+        <response name="success" type="request-redirect" value="EditLanguage">
+            <redirect-parameter name="languageId"/>
+        </response>
+        <response name="error" type="view" value="EditLanguage"/>
+    </request-map>
+    <request-map uri="deleteLanguage">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteLanguage"/>
+        <response name="success" type="request-redirect" value="EditLanguage">
+            <redirect-parameter name="languageId"/>
+        </response>
+        <response name="error" type="view" value="EditLanguage"/>
+    </request-map>
+
+    <request-map uri="FindTranslation"><security https="true" auth="true"/><response name="success" type="view" value="FindTranslation"/></request-map>
+    <request-map uri="EditTranslation"><security https="true" auth="true"/><response name="success" type="view" value="EditTranslation"/></request-map>
+    <request-map uri="EditTranslationLayer"><security https="true" auth="true"/><response name="success" type="view" value="EditTranslationLayer"/></request-map>
+    <request-map uri="createTranslation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createTranslation"/>
+        <response name="success" type="request-redirect" value="EditTranslation">
+            <redirect-parameter name="translationDataId"/>
+        </response>
+        <response name="error" type="view" value="FindTranslation"/>
+    </request-map>
+    <request-map uri="updateTranslation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateTranslation"/>
+        <response name="success" type="request-redirect" value="EditTranslation">
+            <redirect-parameter name="translationDataId"/>
+        </response>
+        <response name="error" type="view" value="EditTranslation"/>
+    </request-map>
+    <request-map uri="deleteTranslation">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteTranslation"/>
+        <response name="success" type="request-redirect" value="EditTranslation">
+            <redirect-parameter name="translationDataId"/>
+        </response>
+        <response name="error" type="view" value="EditTranslation"/>
+    </request-map>
+
+
+    <!-- View Mappings -->
+    <view-map name="main" type="screen" page="component://language/widget/LanguageScreens.xml#main"/>
+    <view-map name="FindLanguage" type="screen" page="component://language/widget/LanguageScreens.xml#FindLanguage"/>
+    <view-map name="EditLanguage" type="screen" page="component://language/widget/LanguageScreens.xml#EditLanguage"/>
+    <view-map name="EditLanguageLayer" type="screen" page="component://language/widget/LanguageScreens.xml#EditLanguageLayer"/>
+    <view-map name="FindTranslation" type="screen" page="component://language/widget/TranslationScreens.xml#FindTranslation"/>
+    <view-map name="EditTranslation" type="screen" page="component://language/widget/TranslationScreens.xml#EditTranslation"/>
+    <view-map name="EditTranslationLayer" type="screen" page="component://language/widget/TranslationScreens.xml#EditTranslationLayer"/>
+
+
+
+
+</site-conf>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <StatusType description="Language" statusTypeId="LANGUAGE_STATUS" hasTable="N"/>
+    <StatusItem sequenceId="01" statusCode="ACTIVE" statusId="LANG_ACTIVE" statusTypeId="LANGUAGE_STATUS" description="활성"/>
+    <StatusItem sequenceId="02" statusCode="INACTIVE" statusId="LANG_INACTIVE" statusTypeId="LANGUAGE_STATUS" description="비활성"/>
+
+    <StatusValidChange statusId="LANG_ACTIVE" statusIdTo="LANG_INACTIVE" transitionName="비활성화 하기"/>
+    <StatusValidChange statusIdTo="LANG_INACTIVE" statusId="LANG_ACTIVE" transitionName="활성화 하기"/>
+
+    <StatusType description="TranslationData" statusTypeId="TR_DATA_STATUS" hasTable="N"/>
+    <StatusItem sequenceId="01" statusCode="COLLECTION" statusId="DATA_COLLECTION" statusTypeId="TR_DATA_STATUS" description="데이터 수집"/>
+    <StatusItem sequenceId="02" statusCode="PREPROCESSING" statusId="DATA_PREPROCESSING" statusTypeId="TR_DATA_STATUS" description="데이터 전처리"/>
+    <StatusItem sequenceId="03" statusCode="PREPARATION" statusId="DATA_PREPARATION" statusTypeId="TR_DATA_STATUS" description="데이터 준비"/>
+    <StatusItem sequenceId="04" statusCode="PENDING" statusId="TRAINING_PENDING" statusTypeId="TR_DATA_STATUS" description="학습 대기"/>
+    <StatusItem sequenceId="05" statusCode="TRAINING" statusId="IN_TRAINING" statusTypeId="TR_DATA_STATUS" description="학습 중"/>
+    <StatusItem sequenceId="06" statusCode="COMPLETED" statusId="TRAINING_COMPLETED" statusTypeId="TR_DATA_STATUS" description="학습 완료"/>
+    <StatusItem sequenceId="07" statusCode="TESTING" statusId="TESTING" statusTypeId="TR_DATA_STATUS" description="검증 및 테스트"/>
+    <StatusItem sequenceId="08" statusCode="READY" statusId="DEPLOYMENT_READY" statusTypeId="TR_DATA_STATUS" description="서비스 준비 완료"/>
+
+    <StatusValidChange statusId="DATA_COLLECTION" statusIdTo="DATA_PREPROCESSING" transitionName="데이터 수집 완료"/><!--Collect Data Completed-->
+    <StatusValidChange statusId="DATA_PREPROCESSING" statusIdTo="DATA_PREPARATION" transitionName="데이터 전처리 완료"/><!--Preprocess Data Completed-->
+    <StatusValidChange statusId="DATA_PREPARATION" statusIdTo="TRAINING_PENDING" transitionName="데이터 준비 완료"/><!--Prepare Data Completed-->
+    <StatusValidChange statusId="TRAINING_PENDING" statusIdTo="IN_TRAINING" transitionName="학습 시작"/><!--Training Started-->
+    <StatusValidChange statusId="IN_TRAINING" statusIdTo="TRAINING_COMPLETED" transitionName="학습 완료"/><!--Training Completed-->
+    <StatusValidChange statusId="TRAINING_COMPLETED" statusIdTo="TESTING" transitionName="테스트 준비 완료"/><!--Test Ready-->
+    <StatusValidChange statusId="TESTING" statusIdTo="DATA_PREPARATION" transitionName="평가 점수 미달"/><!--Evaluate Results Failed-->
+    <StatusValidChange statusId="TESTING" statusIdTo="DEPLOYMENT_READY" transitionName="평가 점수 충족"/><!--Evaluate Results Passed-->
+
+    <StatusType description="LanguageService" statusTypeId="LANG_SERVICE_STATUS" hasTable="N"/>
+    <StatusItem sequenceId="01" statusCode="PREPARING" statusId="SERVICE_PREPARING" statusTypeId="LANG_SERVICE_STATUS" description="서비스 준비 중"/>
+    <StatusItem sequenceId="02" statusCode="READY" statusId="SERVICE_READY" statusTypeId="LANG_SERVICE_STATUS" description="서비스 준비 완료"/>
+    <StatusItem sequenceId="03" statusCode="IN_SERVICE" statusId="IN_SERVICE" statusTypeId="LANG_SERVICE_STATUS" description="서비스 중"/>
+    <StatusItem sequenceId="04" statusCode="PAUSED" statusId="SERVICE_PAUSED" statusTypeId="LANG_SERVICE_STATUS" description="서비스 중단"/>
+
+    <StatusValidChange statusId="SERVICE_PREPARING" statusIdTo="SERVICE_READY" transitionName="서비스 준비 완료"/>
+    <StatusValidChange statusId="SERVICE_PREPARING" statusIdTo="SERVICE_PAUSED" transitionName="서비스 중단"/>
+    <StatusValidChange statusId="SERVICE_READY" statusIdTo="IN_SERVICE" transitionName="서비스 시작"/>
+    <StatusValidChange statusId="SERVICE_READY" statusIdTo="SERVICE_PAUSED" transitionName="서비스 중단"/>
+    <StatusValidChange statusId="IN_SERVICE" statusIdTo="SERVICE_PAUSED" transitionName="서비스 중단"/>
+    <StatusValidChange statusId="SERVICE_PAUSED" statusIdTo="SERVICE_PREPARING" transitionName="서비스 재준비"/>
+    <StatusValidChange statusId="SERVICE_PAUSED" statusIdTo="IN_SERVICE" transitionName="서비스 재개"/>
+
+</entity-engine-xml>
