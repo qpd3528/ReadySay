@@ -225,6 +225,7 @@ dependencies {
     getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
         implementation fileTree(dir: libDir, include: '**/*.jar')
     }
+    implementation 'org.postgresql:postgresql:42.7.3'
 }
 
 def excludedJavaSources = [
@@ -1064,3 +1065,4 @@ tasks.startScripts {
                 windowsScript.text.replace('CLASSPATH=%APP_HOME%\\lib','CLASSPATH=%APP_HOME%\\conf\\;%APP_HOME%\\lib-extra\\*;%APP_HOME%\\lib')
     }
 }
+

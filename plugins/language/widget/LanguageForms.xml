@@ -93,15 +93,15 @@ under the License.
         <field name="nativeName" title="${uiLabelMap.NativeName}"><text/></field>
         <field name="languageCode" title="${uiLabelMap.LanguageCode}" required-field="true" widget-style="required"><text/></field>
         <field name="isSystemLang" title="${uiLabelMap.IsSystemLang}">
-            <radio no-current-selected-key="false">
-                <option key="true"/>
-                <option key="false"/>
+            <radio no-current-selected-key="N">
+                <option key="Y"/>
+                <option key="N"/>
             </radio>
         </field>
         <field name="isTranslationLang" title="${uiLabelMap.IsTranslationLang}">
-            <radio no-current-selected-key="false">
-                <option key="true"/>
-                <option key="false"/>
+            <radio no-current-selected-key="N">
+                <option key="Y"/>
+                <option key="N"/>
             </radio>
         </field>
         <field name="statusId"  use-when="language==null" title="${uiLabelMap.CommonStatus}" required-field="true">

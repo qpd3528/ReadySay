@@ -90,7 +90,7 @@ under the License.
                 <entity-one entity-name="Language" value-field="language"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonLanguageDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="LanguageCommonDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="EditLanguage" location="component://language/widget/LanguageForms.xml"/>
                     </decorator-section>
