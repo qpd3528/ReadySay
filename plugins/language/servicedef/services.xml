@@ -30,19 +30,18 @@ under the License.
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
 <!--        <attribute name="languageId" type="String" mode="IN" optional="false"/>-->
-        <attribute name="languageCode" type="String" mode="IN" optional="false"/>
     </service>
     <service name="updateLanguage" default-entity-name="Language" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Language</description>
-        <permission-service service-name="languageGenericPermission" main-action="UPDATE"/>
+<!--        <permission-service service-name="languageGenericPermission" main-action="UPDATE"/>-->
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <attribute name="languageId" type="String" mode="IN" optional="false"/>
-        <attribute name="languageCode" type="String" mode="IN" optional="false"/>
+<!--        <attribute name="languageId" type="String" mode="IN" optional="false"/>-->
+<!--        <attribute name="languageCode" type="String" mode="IN" optional="false"/>-->
     </service>
     <service name="deleteLanguage" default-entity-name="Language" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Language</description>
-        <permission-service service-name="languageGenericPermission" main-action="DELETE"/>
+<!--        <permission-service service-name="languageGenericPermission" main-action="DELETE"/>-->
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createTranslation" default-entity-name="TranslationData" engine="entity-auto" invoke="create" auth="true">

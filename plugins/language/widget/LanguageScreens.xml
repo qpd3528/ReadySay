@@ -73,6 +73,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLanguage"/>
                 <set field="tabButtonItem" value="EditLanguage"/>
                 <set field="languageId" from-field="parameters.languageId"/>
+                <set field="languageCode" from-field="parameters.languageCode"/>
                 <entity-one entity-name="Language" value-field="language"/>
             </actions>
             <widgets>
@@ -87,6 +88,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleEditLanguage"/>
                 <set field="tabButtonItem" value="EditLanguage"/>
                 <set field="languageId" from-field="parameters.languageId"/>
+                <set field="languageCode" from-field="parameters.languageCode"/>
                 <entity-one entity-name="Language" value-field="language"/>
             </actions>
             <widgets>

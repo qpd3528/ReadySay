@@ -69,11 +69,12 @@ under the License.
         <field name="isSystemLang" title="${uiLabelMap.IsSystemLang}"><display/></field>
         <field name="isTranslationLang" title="${uiLabelMap.IsTranslationLang}"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
-        <!--        <field name="delete" title="${uiLabelMap.delete}" widget-style="buttontext">-->
-        <!--            <hyperlink description="${uiLabelMap.delete}" target="deleteLanguage" also-hidden="false" confirmation-message="${languageName}를 삭제하시겠습니까?">-->
-        <!--                <parameter param-name="languageId"/>-->
-        <!--            </hyperlink>-->
-        <!--        </field>-->
+        <field name="delete" title="${uiLabelMap.delete}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.delete}" target="deleteLanguage" also-hidden="false" confirmation-message="${languageName}를 삭제하시겠습니까?">
+                <parameter param-name="languageId"/>
+                <parameter param-name="languageCode"/>
+            </hyperlink>
+        </field>
     </grid>
 
     <form name="EditLanguage" type="single" target="updateLanguage" title="" default-map-name="language" default-entity-name="Language">
@@ -85,9 +86,9 @@ under the License.
         </actions>
         <alt-target use-when="language==null" target="createLanguage"/>
         <auto-fields-service service-name="updateLanguage"/>
-        <field use-when="language!=null" name="languageId" title="${uiLabelMap.LanguageLanguageId}"><display/></field>
-        <field use-when="language==null @and languageId==null" name="languageId" title="${uiLabelMap.LanguageLanguageId}"><ignored/></field>
-        <field use-when="language==null @and languageId!=null" name="languageId" title="${uiLabelMap.LanguageLanguageId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${languageId}]" also-hidden="false"/></field>
+        <field use-when="language!=null" name="languageId" title="${uiLabelMap.LanguageId}"><display/></field>
+        <field use-when="language==null @and languageId==null" name="languageId" title="${uiLabelMap.LanguageId}"><ignored/></field>
+        <field use-when="language==null @and languageId!=null" name="languageId" title="${uiLabelMap.LanguageId}"><display description="${uiLabelMap.CommonCannotBeFound}: [${languageId}]" also-hidden="false"/></field>
         <field name="languageName" title="${uiLabelMap.FormFieldTitle_languageName}"><text/></field>
         <field name="languageName" title="${uiLabelMap.FormFieldTitle_languageName}"><text placeholder="${uiLabelMap.FormFieldTitle_languageName}"/></field>
         <field name="nativeName" title="${uiLabelMap.NativeName}"><text/></field>
@@ -110,7 +111,7 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" use-when="language!=null" title="${uiLabelMap.CommonStatus}" required-field="true">
-            <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
+            <drop-down allow-empty="false" current="selected" current-description="${currentStatus.description}">
                 <option key="${currentStatus.statusId}" description="${currentStatus.description}"/>
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
                     <entity-constraint name="statusId" env-name="language.statusId"/>

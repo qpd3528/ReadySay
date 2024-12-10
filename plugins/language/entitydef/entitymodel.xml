@@ -39,7 +39,6 @@ under the License.
         <field name="statusId" type="id"></field>
         <field name="direction" type="description"></field>
         <prim-key field="languageId"/>
-        <prim-key field="languageCode"/>
         <relation type="one" fk-name="LANGUAGE_STTS" rel-entity-name="StatusItem">
             <key-map field-name="statusId"/>
         </relation>

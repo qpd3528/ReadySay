@@ -24,7 +24,7 @@ under the License.
     <StatusItem sequenceId="02" statusCode="INACTIVE" statusId="LANG_INACTIVE" statusTypeId="LANGUAGE_STATUS" description="비활성"/>
 
     <StatusValidChange statusId="LANG_ACTIVE" statusIdTo="LANG_INACTIVE" transitionName="비활성화 하기"/>
-    <StatusValidChange statusIdTo="LANG_INACTIVE" statusId="LANG_ACTIVE" transitionName="활성화 하기"/>
+    <StatusValidChange statusId="LANG_INACTIVE" statusIdTo="LANG_ACTIVE" transitionName="활성화 하기"/>
 
     <StatusType description="TranslationData" statusTypeId="TR_DATA_STATUS" hasTable="N"/>
     <StatusItem sequenceId="01" statusCode="COLLECTION" statusId="DATA_COLLECTION" statusTypeId="TR_DATA_STATUS" description="데이터 수집"/>
