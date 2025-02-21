@@ -48,7 +48,7 @@ under the License.
         <field name="translationDataId" type="id"></field>
         <field name="sourceLanguageId" type="id"></field>
         <field name="targetLanguageId" type="id"></field>
-        <field name="DataSourceTypeId" type="id"></field>
+        <field name="dataSourceTypeId" type="id"></field>
         <field name="langModelStatusId" type="id"></field>
         <field name="serviceStatusId" type="id"></field>
         <field name="sequenceId" type="id"></field>
@@ -62,8 +62,8 @@ under the License.
         <relation type="one" rel-entity-name="Language">
             <key-map field-name="targetLanguageId" rel-field-name="languageCode"/>
         </relation>
-        <relation type="one" rel-entity-name="DataType">
-            <key-map field-name="dataSourceTypeId" rel-field-name="dataTypeId"/>
+        <relation type="one" rel-entity-name="TranslationDataSourceType">
+            <key-map field-name="dataSourceTypeId" rel-field-name="translationDataSourceTypeId"/>
         </relation>
         <relation type="one" rel-entity-name="StatusItem">
             <key-map field-name="langModelStatusId" rel-field-name="statusId"/>
@@ -100,13 +100,26 @@ under the License.
         </relation>
     </entity>
 
-    <entity entity-name="DataType" package-name="org.apache.ofbiz.language.language" title="Data Type Entity">
-        <field name="dataTypeId" type="id"></field>
+    <entity entity-name="TranslationDataSourceType" package-name="org.apache.ofbiz.language.language" title="Data Type Entity">
+        <field name="translationDataSourceTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="description" type="description"></field>
-        <prim-key field="dataTypeId"/>
-        <relation type="one" rel-entity-name="DataType">
-            <key-map field-name="dataTypeId"/>
+        <prim-key field="translationDataSourceTypeId"/>
+        <relation type="one" rel-entity-name="TranslationDataSourceType">
+            <key-map field-name="parentTypeId" rel-field-name="translationDataSourceTypeId"/>
+        </relation>
+    </entity>
+
+    <entity entity-name="TranslationDataCategory" package-name="org.apache.ofbiz.language.language" title="Data Category Entity">
+        <field name="translationDataCategoryId" type="id"></field>
+        <field name="parentTypeId" type="id"></field>
+        <field name="categoryName" type="name"></field>
+        <field name="dataCategoryTypeId" type="id"></field>
+        <field name="hasTable" type="indicator"></field>
+        <field name="description" type="description"></field>
+        <prim-key field="translationDataCategoryId"/>
+        <relation type="one" rel-entity-name="TranslationDataCategory">
+            <key-map field-name="parentTypeId" rel-field-name="translationDataCategoryId"/>
         </relation>
     </entity>
 

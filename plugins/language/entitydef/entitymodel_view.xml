@@ -47,4 +47,12 @@ under the License.
         </entity-condition>
     </view-entity>
 
+    <view-entity entity-name="TranslationDataCategory2" package-name="org.apache.ofbiz.language.language">
+        <member-entity entity-alias="TDC" entity-name="TranslationDataCategory"/>
+        <alias-all entity-alias="TDC"/>
+        <entity-condition>
+            <condition-expr entity-alias="TDC" field-name="dataCategoryTypeId" operator="equals" value="대분류"/>
+        </entity-condition>
+    </view-entity>
+
 </entitymodel>

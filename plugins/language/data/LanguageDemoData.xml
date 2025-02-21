@@ -59,4 +59,11 @@ under the License.
     <StatusValidChange statusId="SERVICE_PAUSED" statusIdTo="SERVICE_PREPARING" transitionName="서비스 재준비"/>
     <StatusValidChange statusId="SERVICE_PAUSED" statusIdTo="IN_SERVICE" transitionName="서비스 재개"/>
 
+    <TranslationDataSourceType translationDataSourceTypeId="NAVER" description="NAVER"/>
+    <TranslationDataSourceType translationDataSourceTypeId="PUBLIC_PORTAL" description="PUBLIC_PORTAL"/>
+    <TranslationDataSourceType translationDataSourceTypeId="DICTIONARY" description="DICTIONARY"/>
+
+    <TranslationDataCategory translationDataCategoryId="1" categoryName="Electronics" dataCategoryTypeId="대분류" description="대분22류"/>
+    <TranslationDataCategory translationDataCategoryId="2" parentTypeId="1" categoryName="Electronics22" dataCategoryTypeId="소분류" description="소분류22"/>
+
 </entity-engine-xml>

@@ -34,9 +34,13 @@ under the License.
 
             </drop-down>
         </field>
-        <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceType}"><text/></field><!--데이터 소스 타입이 많아지고  체계적인 관리가 필요하다면 테이블 생성하여 드롭다운 메뉴로 표시가 필요-->
+        <field name="translationDataSourceTypeId" title="${uiLabelMap.DataSourceType}">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="translationDataSourceTypeId" entity-name="TranslationDataSourceType"/>
+            </drop-down>
+        </field>
         <field name="langModelStatusId" title="${uiLabelMap.LangModelStatusId}">
-            <drop-down allow-empty="true" current-description="">
+            <drop-down allow-empty="true">
                 <entity-options key-field-name="statusId" entity-name="TranslationStatusItem"/>
             </drop-down>
         </field>
@@ -46,6 +50,11 @@ under the License.
             </drop-down>
         </field>
         <field name="majorCategory" title="${uiLabelMap.MajorCategory}"><text/></field>
+        <field name="minorCategory" title="${uiLabelMap.MinorCategory}">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="translationDataCategoryId" entity-name="TranslationDataCategory2"/>
+            </drop-down>
+        </field>
         <field name="searchButton"><submit/></field>
     </form>
 

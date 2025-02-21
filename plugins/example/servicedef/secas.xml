@@ -25,12 +25,12 @@ under the License.
     </eca>
     <!-- FIXME: This ECA assumes the updateExample service was called with a statusId parameter.
          The condition should be improved to check for statusId being not empty. -->
-    <!--
+
     <eca service="updateExample" event="return">
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="createExampleStatus" mode="sync"/>
     </eca>
-    -->
+
     <!-- Send push notification on create example -->
     <eca service="updateExample" event="global-commit-post-run">
         <set field-name="message" value="Example is updated"/>
