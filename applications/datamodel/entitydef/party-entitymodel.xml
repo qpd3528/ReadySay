@@ -2092,11 +2092,24 @@ under the License.
       <field name="groupName" type="name"></field>
       <field name="groupNameLocal" type="name"></field>
       <field name="officeSiteName" type="name"></field>
+      <field name="groupType" type="name"></field><!-- 추가 -->
+      <field name="businessRegistrationNumber" type="name"></field><!-- 추가 -->
+      <field name="representativeName" type="name"></field><!-- 추가 -->
+      <field name="openingDate" type="date"></field><!-- 추가 -->
+      <field name="websiteUrl" type="url"></field><!-- 추가 -->
+      <field name="businessHours" type="long-varchar"></field><!-- 추가 -->
+      <field name="companyIntroduction" type="description"></field><!-- 추가 -->
+      <field name="categories" type="very-long"></field><!-- 추가 -->
       <field name="annualRevenue" type="currency-amount"></field>
       <field name="numEmployees" type="numeric"></field>
       <field name="tickerSymbol" type="very-short"></field>
       <field name="comments" type="comment"></field>
       <field name="logoImageUrl" type="url"></field>
+      <field name="employeeCount" type="integer"></field><!-- 추가 -->
+      <field name="activeUserCount" type="integer"></field><!-- 추가 -->
+      <field name="translationVolume" type="numeric"></field><!-- 추가 -->
+      <field name="fileUploadUsage" type="numeric"></field><!-- 추가 -->
+      <field name="chatroomCount" type="integer"></field><!-- 추가 -->
       <prim-key field="partyId"/>
       <relation type="one" fk-name="PARTY_GRP_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
@@ -2812,6 +2825,8 @@ under the License.
       <field name="lastNameLocal" type="name"></field>
       <field name="otherLocal" type="name"></field>
       <field name="memberId" type="id"></field>
+      <field name="nationality" type="name"></field><!-- 추가 -->
+      <field name="languagePreference" type="short-varchar"></field><!-- 추가 -->
       <field name="gender" type="indicator"></field>
       <field name="birthDate" type="date"></field>
       <field name="deceasedDate" type="date"></field>
@@ -3076,5 +3091,151 @@ under the License.
             <key-map field-name="partyClassificationTypeId"/>
         </view-link>
     </view-entity>
+
+
+  <!-- custom entity -->
+
+
+  <entity entity-name="InterestTag" package-name="org.apache.ofbiz.party.party" title="Interest Tag">
+    <field name="interestTagId" type="id"></field><!-- 추가 -->
+    <field name="tagName" type="name"></field><!-- 추가 -->
+    <field name="description" type="description"></field><!-- 추가 -->
+    <field name="tagCategory" type="short-varchar"></field><!-- 추가 -->
+    <field name="statusId" type="id"></field><!-- 추가 -->
+    <prim-key field="interestTagId"/>
+    <relation type="one" rel-entity-name="StatusItem">
+      <key-map field-name="statusId"/>
+    </relation>
+  </entity>
+
+  <entity entity-name="PartyInterestTag" package-name="org.apache.ofbiz.party.party" title="Party Interest Tag">
+    <field name="partyInterestTagId" type="id"></field><!-- 추가 -->
+    <field name="partyId" type="id"></field><!-- 추가 -->
+    <field name="interestTagId" type="id"></field><!-- 추가 -->
+    <field name="tagPriority" type="numeric"></field><!-- 추가 -->
+    <field name="taggedDate" type="date-time"></field><!-- 추가 -->
+    <prim-key field="partyInterestTagId"/>
+    <relation type="one" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="one" rel-entity-name="InterestTag">
+      <key-map field-name="interestTagId"/>
+    </relation>
+  </entity>
+
+  <entity entity-name="EmployeeDetail" package-name="org.apache.ofbiz.party.party" title="Employee Detail">
+    <field name="partyId" type="id"></field><!-- 추가 -->
+    <field name="employerPartyId" type="id"></field><!-- 추가 -->
+    <field name="jobTitle" type="name"></field><!-- 추가 -->
+    <field name="departmentId" type="id"></field><!-- 추가 -->
+    <field name="startDate" type="date"></field><!-- 추가 -->
+    <field name="isTerminated" type="indicator"></field><!-- 추가 -->
+    <field name="terminationDate" type="date"></field><!-- 추가 -->
+    <field name="resonForTerminated" type="long-varchar"></field><!-- 추가 -->
+    <field name="employmentType" type="short-varchar"></field><!-- 추가 -->
+    <field name="employmentStatus" type="short-varchar"></field><!-- 추가 -->
+    <field name="workLocationId" type="id"></field><!-- 추가 -->
+    <field name="workAddress" type="long-varchar"></field><!-- 추가 -->
+    <field name="workLocationType" type="name"></field><!-- 추가 -->
+    <field name="bankAccountDetails" type="long-varchar"></field><!-- 추가 -->
+    <field name="accessLevels" type="very-long"></field><!-- 추가 -->
+    <field name="emergencyContact" type="tel-number"></field><!-- 추가 -->
+    <field name="employmentHistory" type="very-long"></field><!-- 추가 -->
+    <field name="numberOfPaidLeaveUsed" type="numeric"></field><!-- 추가 -->
+    <field name="numberOfDaysInOffice" type="integer"></field><!-- 추가 -->
+    <field name="remoteWorkEligibility" type="indicator"></field><!-- 추가 -->
+    <prim-key field="partyId"/>
+    <prim-key field="employerPartyId"/>
+    <relation type="one" rel-entity-name="Party" fk-name="EMPLOYEE">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="one" rel-entity-name="Party" fk-name="EMPLOYER"><!--구분을 위해 fk-name 추가 없으면 두 개가 생성 되지 않음-->
+      <key-map field-name="employerPartyId" rel-field-name="partyId"/>
+    </relation>
+  </entity>
+
+  <entity entity-name="EmployeeCertificate" package-name="org.apache.ofbiz.party.party" title="Employee Certificate">
+    <field name="certificateId" type="id"></field><!-- 추가 -->
+    <field name="partyId" type="id"></field><!-- 추가 -->
+    <field name="certificateName" type="name"></field><!-- 추가 -->
+    <field name="issuedBy" type="name"></field><!-- 추가 -->
+    <field name="issueDate" type="date"></field><!-- 추가 -->
+    <field name="rxpirationDate" type="date"></field><!-- 추가 -->
+    <field name="certificateImageUrl" type="url"></field><!-- 추가 -->
+    <prim-key field="certificateId"/>
+    <prim-key field="partyId"/>
+    <relation type="one" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+  </entity>
+
+  <entity entity-name="EmployeeAttendance" package-name="org.apache.ofbiz.party.party" title="Employee Attendance">
+    <field name="attendanceId" type="id"></field><!-- 추가 -->
+    <field name="partyId" type="id"></field><!-- 추가 -->
+    <field name="attendanceDate" type="date"></field><!-- 추가 -->
+    <field name="inTime" type="date-time"></field><!-- 추가 -->
+    <field name="outTime" type="date-time"></field><!-- 추가 -->
+    <field name="overtimeHours" type="numeric"></field><!-- 추가 -->
+    <prim-key field="attendanceId"/>
+    <prim-key field="partyId"/>
+    <relation type="one" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+  </entity>
+
+  <entity entity-name="EmployeeVacation" package-name="org.apache.ofbiz.party.party" title="Employee Vacation">
+    <field name="vacationId" type="id"></field><!-- 추가 -->
+    <field name="partyId" type="id"></field><!-- 추가 -->
+    <field name="vacationType" type="name"></field><!-- 추가 -->
+    <field name="startDate" type="date"></field><!-- 추가 -->
+    <field name="endDate" type="date"></field><!-- 추가 -->
+    <field name="totalDays" type="integer"></field><!-- 추가 -->
+    <prim-key field="vacationId"/>
+    <prim-key field="partyId"/>
+    <relation type="one" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+  </entity>
+
+  <entity entity-name="EmployeeEquipment" package-name="org.apache.ofbiz.party.party" title="Employee Equipment">
+    <field name="equipmentId" type="id"></field><!-- 추가 -->
+    <field name="partyId" type="id"></field><!-- 추가 -->
+    <field name="equipmentType" type="name"></field><!-- 추가 -->
+    <field name="modelName" type="name"></field><!-- 추가 -->
+    <field name="serialNumber" type="name"></field><!-- 추가 -->
+    <field name="assignedDate" type="date"></field><!-- 추가 -->
+    <field name="returnDate" type="date"></field><!-- 추가 -->
+    <prim-key field="equipmentId"/>
+    <prim-key field="partyId"/>
+    <relation type="one" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+  </entity>
+
+  <entity entity-name="UserDeviceInfo" package-name="org.apache.ofbiz.party.party" title="User Device Info">
+    <field name="userDeviceId" type="id"></field><!-- 추가 -->
+    <field name="partyId" type="id"></field><!-- 추가 -->
+    <field name="deviceIdType" type="id"></field><!-- 추가 -->
+    <field name="osType" type="id"></field><!-- 추가 -->
+    <field name="deviceModel" type="name"></field><!-- 추가 -->
+    <field name="osVersion" type="short-varchar"></field><!-- 추가 -->
+    <field name="appVersion" type="short-varchar"></field><!-- 추가 -->
+    <field name="deviceLanguage" type="short-varchar"></field><!-- 추가 -->
+    <field name="networkType" type="short-varchar"></field><!-- 추가 -->
+    <field name="lastActiveDate" type="date-time"></field><!-- 추가 -->
+    <field name="locationPermission" type="indicator"></field><!-- 추가 -->
+    <field name="pushNotificationEnabled" type="indicator"></field><!-- 추가 -->
+    <field name="deviceScreenResolution" type="short-varchar"></field><!-- 추가 -->
+    <field name="timezone" type="short-varchar"></field><!-- 추가 -->
+    <field name="ipAddress" type="short-varchar"></field><!-- 추가 -->
+    <field name="ramSize" type="short-varchar"></field><!-- 추가 -->
+    <field name="appUsageData" type="very-long"></field><!-- 추가 -->
+    <prim-key field="userDeviceId"/>
+    <prim-key field="partyId"/>
+    <relation type="one" rel-entity-name="Party">
+      <key-map field-name="partyId" rel-field-name="partyId"/>
+    </relation>
+  </entity>
+
     
 </entitymodel>

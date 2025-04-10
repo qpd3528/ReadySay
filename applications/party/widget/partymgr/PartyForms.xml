@@ -39,9 +39,9 @@ under the License.
             </radio>
         </field>
         <field name="hideFields"><hidden value="Y"/></field>
-        <field name="partyId"><text size="15" /></field>
+        <field name="partyId"><text size="15"/></field>
         <field name="userLoginId"><lookup target-form-name="LookupUserLogin" size="15"/></field>
-        <field name="externalId"><text size="15" /></field>
+        <field name="externalId"><text size="15"/></field>
         <field name="lastName"><text size="15"/></field>
         <field name="firstName"><text size="15"/></field>
         <field name="groupName" title="${uiLabelMap.PartyGroupName}"><text size="15"/></field>
@@ -142,7 +142,7 @@ under the License.
                 <field-map field-name="partyId" from-field="partyId"/>
                 <field-map field-name="userLogin" from-field="userLogin"/>
             </service>
-            <entity-condition entity-name="PartyClassification" list="partyClassifications" use-cache="true" distinct="true">
+            <entity-condition entity-name="PartyClassification" list="partyClassifications" use-cache="false" distinct="true">
                 <condition-expr field-name="partyId" from-field="partyId"/>
                 <select-field field-name="partyClassificationGroupId"/>
             </entity-condition>
